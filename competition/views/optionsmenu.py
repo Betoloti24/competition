@@ -1,6 +1,8 @@
 ## IMPORTACION DE PAQUETES
+from asyncio import exceptions
 from data.archive import inputDataBase
-from controlers.textintable import printParticipants, printParticipantsByGroup, printParticipantsBySex, printTotalParticipants, printWinnersByGroup, printWinnersBySex, printWinnersByGroupSex, printWinner, printHistogram, printAverageTime
+from exceptions.exepbasic import OptionMenu
+from controllers.textintable import printParticipants, printParticipantsByGroup, printParticipantsBySex, printTotalParticipants, printWinnersByGroup, printWinnersBySex, printWinnersByGroupSex, printWinner, printHistogram, printAverageTime
 from collections import deque
 import os, time
 
@@ -38,7 +40,7 @@ def menuArchivo(listparticipants:deque, listjuniors:deque, listseniors:deque, li
                 os.system('cls')
                 print("\n\tCARGAR ARCHIVO:\n")
                 print("\tPara regresar al menu de archivos, ingrese el valor 0 y pulce ENTER")
-                print("\tIngrese el nombre del archivo a cargar (nombre.txt) -->> ", end="")
+                print("\tIngrese el nombre del archivo a cargar -->> ", end="")
                 namearchive = input()
 
                 if (namearchive != "0"):
@@ -58,12 +60,16 @@ def menuArchivo(listparticipants:deque, listjuniors:deque, listseniors:deque, li
 
             ## Opcion incorrecta
             else:
-                print("\n\t¡¡ERROR!!, ingrese una opcion correcta\n\n\t", end="")
-                os.system("pause")
+                raise OptionMenu("\n\t¡¡ERROR!!, el dato ingresado no es una opcion del menú\n\n\t", end="")
 
         ## Capturamos la excepcion de ValueError
         except ValueError:
             print("\n\t¡¡ERROR!!, el dato ingresado en el menú debe ser un número entero\n\n\t", end="")
+            option = -1
+            os.system("pause")
+        ## Capturamos la excepcion de OptionMenu
+        except (OptionMenu) as e:
+            print(f"\n\t{e}\n\n\t", end="")
             option = -1
             os.system("pause")
 
@@ -123,14 +129,19 @@ def menuAcciones(listparticipants:deque, listjuniors:deque, listseniors:deque, l
                 ## Opcion incorrecta
                 elif (option != 0):
                     print("\n\tERROR!, ingrese una opcion correcta\n\n\t", end="")
-            elif (option != 0):
-                print("\n\t¡¡ERROR!!, la lista de participantes está vacía\n\n\t", end="")
                 os.system("pause")
-            os.system("pause")
-
+            elif (option != 0):
+                raise OptionMenu("\n\t¡¡ERROR!!, el dato ingresado no es una opcion del menú\n\n\t", end="")
+            
         ## Capturamos la excepcion de ValueError
         except ValueError:
             print("\n\t¡¡ERROR!!, el dato ingresado en el menú debe ser un número entero\n\n\t", end="")
+            option = -1
+            os.system("pause")
+
+        ## Capturamos la excepcion de OptionMenu
+        except (OptionMenu) as e:
+            print(f"\n\t{e}\n\n\t", end="")
             option = -1
             os.system("pause")
         

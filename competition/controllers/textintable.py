@@ -17,7 +17,7 @@ def printParticipants(listparticipants:deque):
     print("\t----------------------------------------------------------------------------------------------")
     for i, participant in enumerate(listparticipants):
         ## Imprimimos los datos de cada participante
-        print("\t|{:3}| {:9}| {:13}|   {:4}| {:13}| {:17}| {:3}|{:3} | {:9}|".format(i+1,participant["CI"], participant["Nombre"], participant["InicialNombre"], participant["Apellido1"], participant["Apellido2"], participant["Sexo"], participant["Edad"], participant["Tiempo"].strftime("%H:%M:%S")))
+        print("\t|{:3}| {:9}| {:13}|   {:4}| {:13}| {:17}| {:3}|{:3} | {:9}|".format(i+1,participant["ci"], participant["name"], participant["initialname"], participant["surname1"], participant["surname2"], participant["sex"], participant["age"], participant["time"].strftime("%H:%M:%S")))
     print("\t----------------------------------------------------------------------------------------------\n\n\t", end="")
 
 # Funcion que imprime la cantidad de participantes
@@ -67,35 +67,18 @@ def printWinnersByGroup(listjunior:deque, listsenior:deque, listmaster:deque):
     ## Imprimimos el encabezado
     print("\n\tGANADORES POR GRUPO ETARIO:\n")
     
-    ## Imprimimos a los juniors
-    print("\tGRUPO DE JUNIORS:")
-    print("\t----------------------------------------------------------------------------------------------")
-    print("\t| # |  Cedula  |    Nombre    |Inicial| 1er Apellido |   2do Apellido   |Sexo|Edad|  Tiempo  |")
-    print("\t----------------------------------------------------------------------------------------------")
-    for i, participant in enumerate(listjunior):
-        ## Imprimimos los datos de cada participante
-        print("\t|{:3}| {:9}| {:13}|   {:4}| {:13}| {:17}| {:3}|{:3} | {:9}|".format(i+1,participant["CI"], participant["Nombre"], participant["InicialNombre"], participant["Apellido1"], participant["Apellido2"], participant["Sexo"], participant["Edad"], participant["Tiempo"].strftime("%H:%M:%S")))
-    print("\t----------------------------------------------------------------------------------------------\n\n", end="")
-
-    ## Imprimimos a los seniors
-    print("\tGRUPO DE SENIORS:")
-    print("\t----------------------------------------------------------------------------------------------")
-    print("\t| # |  Cedula  |    Nombre    |Inicial| 1er Apellido |   2do Apellido   |Sexo|Edad|  Tiempo  |")
-    print("\t----------------------------------------------------------------------------------------------")
-    for i, participant in enumerate(listsenior):
-        ## Imprimimos los datos de cada participante
-        print("\t|{:3}| {:9}| {:13}|   {:4}| {:13}| {:17}| {:3}|{:3} | {:9}|".format(i+1,participant["CI"], participant["Nombre"], participant["InicialNombre"], participant["Apellido1"], participant["Apellido2"], participant["Sexo"], participant["Edad"], participant["Tiempo"].strftime("%H:%M:%S")))
-    print("\t----------------------------------------------------------------------------------------------\n\n", end="")
-    
-    ## Imprimimos a los masters
-    print("\tGRUPO DE MASTERS:")
-    print("\t----------------------------------------------------------------------------------------------")
-    print("\t| # |  Cedula  |    Nombre    |Inicial| 1er Apellido |   2do Apellido   |Sexo|Edad|  Tiempo  |")
-    print("\t----------------------------------------------------------------------------------------------")
-    for i, participant in enumerate(listmaster):
-        ## Imprimimos los datos de cada participante
-        print("\t|{:3}| {:9}| {:13}|   {:4}| {:13}| {:17}| {:3}|{:3} | {:9}|".format(i+1,participant["CI"], participant["Nombre"], participant["InicialNombre"], participant["Apellido1"], participant["Apellido2"], participant["Sexo"], participant["Edad"], participant["Tiempo"].strftime("%H:%M:%S")))
-    print("\t----------------------------------------------------------------------------------------------\n\n\t", end="")
+    ## Imprimimos a los ganadores por grupo etario
+    print("\t----------------------------------------------------------------------------------------------------")
+    print("\t|  Grupo  |  Cedula  |    Nombre    |Inicial| 1er Apellido |   2do Apellido   |Sexo|Edad|  Tiempo  |")
+    print("\t----------------------------------------------------------------------------------------------------")
+   
+    ## Imprimimos los datos del ganador junior
+    print("\t| Junior  | {:9}| {:13}|   {:4}| {:13}| {:17}| {:3}|{:3} | {:9}|".format(listjunior[0]["ci"], listjunior[0]["name"], listjunior[0]["initialname"], listjunior[0]["surname1"], listjunior[0]["surname2"], listjunior[0]["sex"], listjunior[0]["age"], listjunior[0]["time"].strftime("%H:%M:%S")))
+    ## Imprimimos los datos del ganador senior
+    print("\t| Senior  | {:9}| {:13}|   {:4}| {:13}| {:17}| {:3}|{:3} | {:9}|".format(listsenior[0]["ci"], listsenior[0]["name"], listsenior[0]["initialname"], listsenior[0]["surname1"], listsenior[0]["surname2"], listsenior[0]["sex"], listsenior[0]["age"], listsenior[0]["time"].strftime("%H:%M:%S")))
+    ## Imprimimos los datos del ganador master
+    print("\t| Master  | {:9}| {:13}|   {:4}| {:13}| {:17}| {:3}|{:3} | {:9}|".format(listmaster[0]["ci"], listmaster[0]["name"], listmaster[0]["initialname"], listmaster[0]["surname1"], listmaster[0]["surname2"], listmaster[0]["sex"], listmaster[0]["age"], listmaster[0]["time"].strftime("%H:%M:%S")))
+    print("\t----------------------------------------------------------------------------------------------------\n\n\t", end="")
 
 # Funcion para imprimir los ganadores por sexo
 def printWinnersBySex(listmen:deque, listwomen:deque):
@@ -103,32 +86,19 @@ def printWinnersBySex(listmen:deque, listwomen:deque):
     os.system('cls')
     ## Imprimimos el encabezado
     print("\n\tGANADORES POR SEXO:\n")
-    ## Imprimimos a las Mujeres
-    print("\tGRUPO DE MUJERES:")
-    print("\t----------------------------------------------------------------------------------------------")
-    print("\t| # |  Cedula  |    Nombre    |Inicial| 1er Apellido |   2do Apellido   |Sexo|Edad|  Tiempo  |")
-    print("\t----------------------------------------------------------------------------------------------")
-    for i, participant in enumerate(listwomen):
-        ## Imprimimos los datos de cada participante
-        print("\t|{:3}| {:9}| {:13}|   {:4}| {:13}| {:17}| {:3}|{:3} | {:9}|".format(i+1,participant["CI"], participant["Nombre"], participant["InicialNombre"], participant["Apellido1"], participant["Apellido2"], participant["Sexo"], participant["Edad"], participant["Tiempo"].strftime("%H:%M:%S")))
-    print("\t----------------------------------------------------------------------------------------------\n\n", end="")
-    
-    ## Imprimimos a los Hombres
-    print("\tGRUPO DE HOMBRES:")
-    print("\t----------------------------------------------------------------------------------------------")
-    print("\t| # |  Cedula  |    Nombre    |Inicial| 1er Apellido |   2do Apellido   |Sexo|Edad|  Tiempo  |")
-    print("\t----------------------------------------------------------------------------------------------")
-    for i, participant in enumerate(listmen):
-        ## Imprimimos los datos de cada participante
-        print("\t|{:3}| {:9}| {:13}|   {:4}| {:13}| {:17}| {:3}|{:3} | {:9}|".format(i+1,participant["CI"], participant["Nombre"], participant["InicialNombre"], participant["Apellido1"], participant["Apellido2"], participant["Sexo"], participant["Edad"], participant["Tiempo"].strftime("%H:%M:%S")))
-    print("\t----------------------------------------------------------------------------------------------\n\n\t", end="")
+    ## Imprimimos a los ganadores por sexo
+    print("\t------------------------------------------------------------------------------------------------------")
+    print("\t|   Grupo   |  Cedula  |    Nombre    |Inicial| 1er Apellido |   2do Apellido   |Sexo|Edad|  Tiempo  |")
+    print("\t------------------------------------------------------------------------------------------------------")
+    print("\t| Femenino  | {:9}| {:13}|   {:4}| {:13}| {:17}| {:3}|{:3} | {:9}|".format(listwomen[0]["ci"], listwomen[0]["name"], listwomen[0]["initialname"], listwomen[0]["surname1"], listwomen[0]["surname2"], listwomen[0]["sex"], listwomen[0]["age"], listwomen[0]["time"].strftime("%H:%M:%S")))
+    print("\t| Masculino | {:9}| {:13}|   {:4}| {:13}| {:17}| {:3}|{:3} | {:9}|".format(listmen[0]["ci"], listmen[0]["name"], listmen[0]["initialname"], listmen[0]["surname1"], listmen[0]["surname2"], listmen[0]["sex"], listmen[0]["age"], listmen[0]["time"].strftime("%H:%M:%S")))
+    print("\t------------------------------------------------------------------------------------------------------\n\n\t", end="")
 
 # Funcion para imprimir los ganadores por etario y sexo
 def printWinnersByGroupSex(listmen:deque, listwomen:deque, listjunior:deque, listsenior:deque, listmaster:deque):
     # Impresion de resultados formateados en tabla
     ## Imprimimos por sexo
     printWinnersBySex(listmen, listwomen)
-    os.system('pause')
     ## Imprimimos por etario
     printWinnersByGroup(listjunior, listsenior, listmaster)
 
@@ -140,7 +110,7 @@ def printWinner(winner:dict):
     print("\n\tGANADOR GENERAL:\n")
     ## Imprimimos los datos del ganador
     print("\tEntre todos los participantes, el que posee el mejor tiempo es:\n")
-    print("\t\tCedula de Identidad: {:9}\n\t\tNombre: {:13}\n\t\tInicial del 2do Nombre: {:4}\n\t\t1er Apellido: {:13}\n\t\t2do Apellido: {:17}\n\t\tSexo: {:3}\n\t\tEdad: {:3} años de edad\n\t\tTiempo Record: {:9}\n\n\t".format(winner["CI"], winner["Nombre"], winner["InicialNombre"], winner["Apellido1"], winner["Apellido2"], winner["Sexo"], winner["Edad"], winner["Tiempo"].strftime("%H:%M:%S")), end="")
+    print("\t  Cedula de Identidad: {} - Nombre: {} - Inicial del 2do Nombre: {} - 1er Apellido: {} - 2do Apellido: {} - Sexo: {} - Edad: {} años de edad - Tiempo Record: {}\n\n\t".format(winner["ci"], winner["name"], winner["initialname"], winner["surname1"], winner["surname2"], winner["sex"], winner["age"], winner["time"].strftime("%H:%M:%S")), end="")
 
 # Funcion para imprimir el histograma de participantes por grupo etario
 def printHistogram(listjunior:deque, listsenior:deque, listmaster:deque):
@@ -156,7 +126,7 @@ def printHistogram(listjunior:deque, listsenior:deque, listmaster:deque):
 # Funcion para mostrar el promedio de tiempo de los grupos etarios y el sexo
 def printAverageTime(listjunior:deque, listsenior:deque, listmaster:deque, listmen:deque, listwomen:deque):
     # Declaracion de variables
-    fseconds = lambda ptime: ptime['Tiempo'].hour*3600 + ptime['Tiempo'].minute*60 + ptime['Tiempo'].second
+    fseconds = lambda ptime: ptime['time'].hour*3600 + ptime['time'].minute*60 + ptime['time'].second
     # Impresion de resultados formateados en tabla
     os.system('cls')
     ## Imprimimos el encabezado

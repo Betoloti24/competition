@@ -1,5 +1,6 @@
 ## IMPORTACION DE PAQUETES
 from .optionsmenu import menuArchivo, menuAcciones
+from exceptions.exepbasic import OptionMenu
 from collections import deque
 import os
 
@@ -38,11 +39,16 @@ def menuPrincipal():
                 os.system('cls')
             ## Opcion incorrecta
             else:
-                print("\n\t¡¡ERROR!!, ingrese una opcion correcta\n\n\t", end="")
-                os.system("pause")
+                raise OptionMenu("\n\t¡¡ERROR!!, el dato ingresado no es una opcion del menú\n\n\t", end="")
 
         ## Capturamos la excepcion de ValueError
         except ValueError:
             print("\n\t¡¡ERROR!!, el dato ingresado en el menú debe ser un número entero\n\n\t", end="")
+            option = -1
+            os.system("pause")
+        
+        ## Capturamos la excepcion de OptionMenu
+        except (OptionMenu) as e:
+            print(f"\n\t{e}\n\n\t", end="")
             option = -1
             os.system("pause")

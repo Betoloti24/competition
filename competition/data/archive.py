@@ -9,11 +9,6 @@ import os, sys
 ## DECLARACION DE FUNCIONES Y PROCEDIMIENTOS
 # Procedimiento de validacion
 def __validar(file):
-    # Verificamos la extencion
-    extension = file.name.split("/")[-1].split(".")[1]
-    if extension not in ["txt", "md"]:
-        raise FileNotExtension("¡¡ERROR!!, el archivo no es .txt ni .md")
-
     # Verificamos que el archivo no este vacio
     if (file.read() == ""):
         raise FileEmpty("¡¡ERROR!!, el archivo esta vacio")
@@ -30,41 +25,39 @@ def __validar(file):
 
 # Carga del archivo
 def inputDataBase(namearchive:str, listparticipants:deque, listjuniors:deque, listseniors:deque, listmaster:deque, listmen:deque, listwomen:deque):
-    # Extraemos el directorio actual    
-    dir_path = "/".join(sys.argv[0].split("/")[0:-1]) + "/data/"
     try:
         # Empezamos a trabajar con el archivo
-        with open(dir_path + namearchive, "rt") as file:
+        with open(namearchive + ".txt", "rt") as file:
             # Validamos el archivo
             if (__validar(file)):
                 # Creamos las estructuras de la base de datos
                 ## Lista de participantes
                 listparticipants = list([
-                    {"CI": data[0], "Apellido1": data[1], "Apellido2": data[2], "Nombre": data[3], "InicialNombre": data[4], "Sexo": data[5], "Edad": int(data[6]), "Tiempo": time(hour=int(data[7]), minute=int(data[8]), second=int(data[9]))}
+                    {"ci": data[0], "surname1": data[1], "surname2": data[2], "name": data[3], "initialname": data[4], "sex": data[5], "age": int(data[6]), "time": time(hour=int(data[7]), minute=int(data[8]), second=int(data[9]))}
                     for data in [line.split(",") for line in file.readlines()]
                 ])
-                listparticipants.sort(key=lambda participant: participant["Tiempo"])
+                listparticipants.sort(key=lambda participant: participant["time"])
                 listparticipants = deque(listparticipants)
 
                 ## Lista de participantes junior
-                listjuniors = list(filter(lambda participant: participant["Edad"] <= 25, listparticipants))
-                listjuniors.sort(key=lambda participant: participant["Tiempo"])
+                listjuniors = list(filter(lambda participant: participant["age"] <= 25, listparticipants))
+                listjuniors.sort(key=lambda participant: participant["time"])
                 listjuniors = deque(listjuniors)
                 ## Lista de participantes senior
-                listseniors = list(filter(lambda participant: participant["Edad"] > 25 and participant["Edad"] <= 40, listparticipants))
-                listseniors.sort(key=lambda participant: participant["Tiempo"])
+                listseniors = list(filter(lambda participant: participant["age"] > 25 and participant["age"] <= 40, listparticipants))
+                listseniors.sort(key=lambda participant: participant["time"])
                 listseniors = deque(listseniors)
                 ## Lista de participantes master
-                listmaster = list(filter(lambda participant: participant["Edad"] > 40, listparticipants))
-                listmaster.sort(key=lambda participant: participant["Tiempo"])
+                listmaster = list(filter(lambda participant: participant["age"] > 40, listparticipants))
+                listmaster.sort(key=lambda participant: participant["time"])
                 listmaster = deque(listmaster)
                 ## Lista de participantes masculinos
-                listmen = list(filter(lambda participant: participant["Sexo"] == "M", listparticipants))
-                listmen.sort(key=lambda participant: participant["Tiempo"])
+                listmen = list(filter(lambda participant: participant["sex"] == "M", listparticipants))
+                listmen.sort(key=lambda participant: participant["time"])
                 listmen = deque(listmen)
                 ## Lista de participantes femeninos
-                listwomen = list(filter(lambda participant: participant["Sexo"] == "F", listparticipants))
-                listwomen.sort(key=lambda participant: participant["Tiempo"])
+                listwomen = list(filter(lambda participant: participant["sex"] == "F", listparticipants))
+                listwomen.sort(key=lambda participant: participant["time"])
                 listwomen = deque(listwomen)
 
     # Capturamos la excepcion de FileNotFoundError
