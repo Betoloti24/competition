@@ -110,7 +110,7 @@ def printWinner(winner:dict):
     print("\n\tGANADOR GENERAL:\n")
     ## Imprimimos los datos del ganador
     print("\tEntre todos los participantes, el que posee el mejor tiempo es:\n")
-    print("\t  Cedula de Identidad: {} - Nombre: {} - Inicial del 2do Nombre: {} - 1er Apellido: {} - 2do Apellido: {} - Sexo: {} - Edad: {} años de edad - Tiempo Record: {}\n\n\t".format(winner["ci"], winner["name"], winner["initialname"], winner["surname1"], winner["surname2"], winner["sex"], winner["age"], winner["time"].strftime("%H:%M:%S")), end="")
+    print("\t  Cedula de Identidad: {}, Nombre: {}, Inicial del 2do Nombre: {}, 1er Apellido: {}, 2do Apellido: {}, Sexo: {}, Edad: {} años de edad, Tiempo Record: {}\n\n\t".format(winner["ci"], winner["name"], winner["initialname"], winner["surname1"], winner["surname2"], winner["sex"], winner["age"], winner["time"].strftime("%H:%M:%S")), end="")
 
 # Funcion para imprimir el histograma de participantes por grupo etario
 def printHistogram(listjunior:deque, listsenior:deque, listmaster:deque):

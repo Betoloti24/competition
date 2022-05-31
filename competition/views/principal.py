@@ -9,7 +9,7 @@ import os
 def menuPrincipal():
     # Inicializamos las variables y estructuras de datos
     option = -1
-    listparticipants, listjuniors, listseniors, listmaster, listmen, listwomen = deque([]), deque([]), deque([]), deque([]), deque([]), deque([]),
+    data_base = {"list_participants": deque(), "list_juniors": deque(), "list_seniors": deque(), "list_master": deque(), "list_men": deque(), "list_women": deque()}
 
     # Mostramos el menu principal
     while (option):
@@ -28,10 +28,10 @@ def menuPrincipal():
             # Evaluamos la opcion ingresada
             ## Opcion 1: Menu de archivos
             if (option == 1):
-                listparticipants, listjuniors, listseniors, listmaster, listmen, listwomen = menuArchivo(listparticipants, listjuniors, listseniors, listmaster, listmen, listwomen)
+                data_base = menuArchivo(data_base)
             ## Opcion 2: Menu de acciones
             elif (option == 2):
-                menuAcciones(listparticipants, listjuniors, listseniors, listmaster, listmen, listwomen)
+                menuAcciones(data_base)
             ## Opcion 0: Salir del sistema
             elif (option == 0):
                 print("\n\tGracias por usar este sistema\n\n\t", end="")

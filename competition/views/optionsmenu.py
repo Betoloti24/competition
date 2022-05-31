@@ -1,5 +1,4 @@
 ## IMPORTACION DE PAQUETES
-from asyncio import exceptions
 from data.archive import inputDataBase
 from exceptions.exepbasic import OptionMenu
 from controllers.textintable import printParticipants, printParticipantsByGroup, printParticipantsBySex, printTotalParticipants, printWinnersByGroup, printWinnersBySex, printWinnersByGroupSex, printWinner, printHistogram, printAverageTime
@@ -16,7 +15,7 @@ def progress(percent:int=0, width:int=30):
           sep='', end='', flush=True)
 
 # Vista de la opcion 1 del menu principal
-def menuArchivo(listparticipants:deque, listjuniors:deque, listseniors:deque, listmaster:deque, listmen:deque, listwomen:deque):
+def menuArchivo(data_base:dict):
     # Inicializamos las variables y estructuras de datos
     option = -1
     namearchive = ""
@@ -40,23 +39,23 @@ def menuArchivo(listparticipants:deque, listjuniors:deque, listseniors:deque, li
                 os.system('cls')
                 print("\n\tCARGAR ARCHIVO:\n")
                 print("\tPara regresar al menu de archivos, ingrese el valor 0 y pulce ENTER")
-                print("\tIngrese el nombre del archivo a cargar -->> ", end="")
+                print("\tIngrese el nombre del archivo a cargar (nombre.txt/md) -->> ", end="")
                 namearchive = input()
 
                 if (namearchive != "0"):
                     # Pausa para la carga de datos
-                    print("\n\tCARGANDO ARCHIVO...  \n\t", end="")
+                    # print("\n\tCARGANDO ARCHIVO...  \n\t", end="")
                     # for i in range(101):
                     #     progress(i)
                     #     time.sleep(0.05)
                     # print("")
                     
                     # Cargamos los datos del archivo
-                    listparticipants, listjuniors, listseniors, listmaster, listmen, listwomen = inputDataBase(namearchive, listparticipants, listjuniors, listseniors, listmaster, listmen, listwomen)
+                    data_base = inputDataBase(namearchive, data_base)
 
             ## Opcion de salida
             elif (option == 0):
-                return listparticipants, listjuniors, listseniors, listmaster, listmen, listwomen
+                return data_base
 
             ## Opcion incorrecta
             else:
@@ -74,7 +73,7 @@ def menuArchivo(listparticipants:deque, listjuniors:deque, listseniors:deque, li
             os.system("pause")
 
 # Vista de la opcion 2 del menu principal
-def menuAcciones(listparticipants:deque, listjuniors:deque, listseniors:deque, listmaster:deque, listmen:deque, listwomen:deque):
+def menuAcciones(data_base:dict):
     # Inicializamos las variables y estructuras de datos
     option = -1
 
@@ -101,31 +100,31 @@ def menuAcciones(listparticipants:deque, listjuniors:deque, listseniors:deque, l
             option = int(input())
 
             # Verificamos que la lista no este vacia
-            if (len(listparticipants) != 0 and option != 0):
+            if (len(data_base["list_participants"]) != 0 and option != 0):
                 # Evaluamos la opcion ingresada
                 ## Opcion 1: Lista con la totalidad de participantes
-                if (option == 1): printParticipants(listparticipants)
+                if (option == 1): printParticipants(data_base["list_participants"])
                 ## Opcion 2: Cantidad total de participantes
-                elif (option == 2): printTotalParticipants(listparticipants)
+                elif (option == 2): printTotalParticipants(data_base["list_participants"])
                 ## Opcion 3: Cantidad de participantes por grupo etario
-                elif (option == 3): printParticipantsByGroup(listjuniors, listmaster, listseniors)
+                elif (option == 3): printParticipantsByGroup(data_base["list_juniors"], data_base["list_masters"], data_base["list_seniors"])
                 ## Opcion 4: Cantidad de participantes por sexo
-                elif (option == 4): printParticipantsBySex(listmen, listwomen)
+                elif (option == 4): printParticipantsBySex(data_base["list_men"], data_base["list_women"])
                 ## Opcion 5: Ganadores por grupo etario
-                elif (option == 5): printWinnersByGroup(listjuniors, listmaster, listseniors)
+                elif (option == 5): printWinnersByGroup(data_base["list_juniors"], data_base["list_masters"], data_base["list_seniors"])
                 ## Opcion 6: Ganadores por sexo
-                elif (option == 6): printWinnersBySex(listmen, listwomen)
+                elif (option == 6): printWinnersBySex(data_base["list_men"], data_base["list_women"])
                 ## Opcion 7: Ganadores por grupo etario y sexo
                 elif (option == 7):
                     os.system('cls')
                     print("\n\tGANADORES POR SEXO Y ETARIO:\n")
-                    printWinnersByGroupSex(listjuniors, listmaster, listseniors, listmen, listwomen)
+                    printWinnersByGroupSex(data_base["list_juniors"], data_base["list_masters"], data_base["list_seniors"], data_base["list_men"], data_base["list_women"])
                 ## Opcion 8: Ganador general
-                elif (option == 8): printWinner(listparticipants[0])
+                elif (option == 8): printWinner(data_base["list_participants"][0])
                 ## Opcion 9: Histograma de participantes por grupo etario
-                elif (option == 9): printHistogram(listjuniors, listseniors, listmaster)
+                elif (option == 9): printHistogram(data_base["list_juniors"], data_base["list_seniors"], data_base["list_masters"])
                 ## Opcion 10: Promedio de tiempo por grupo etario y sexo
-                elif (option == 10): printAverageTime(listjuniors, listseniors, listmaster, listmen, listwomen)
+                elif (option == 10): printAverageTime(data_base["list_juniors"], data_base["list_seniors"], data_base["list_masters"], data_base["list_men"], data_base["list_women"])
                 ## Opcion incorrecta
                 elif (option != 0):
                     print("\n\tERROR!, ingrese una opcion correcta\n\n\t", end="")
