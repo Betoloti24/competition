@@ -1,20 +1,20 @@
 ## IMPORTACION DE PAQUETES
-from .optionsmenu import menuArchivo, menuAcciones
-from exceptions.exepbasic import OptionMenu
-from collections import deque
+from .options_menu import menuArchivo, menuAcciones
+from controllers.utils import clear_screen
+from exceptions.exeption_basic import OptionMenu
 import os
 
 ## DECLARACION DE FUNCIONES Y PROCEDIMIENTOS
-# Vista principal del sistema
-def menuPrincipal():
+# Vista principal del sistema 
+def menuPrincipal() -> None:
     # Inicializamos las variables y estructuras de datos
     option = -1
-    data_base = {"list_participants": deque(), "list_juniors": deque(), "list_seniors": deque(), "list_master": deque(), "list_men": deque(), "list_women": deque()}
+    data_base = {"list_participants": [], "list_juniors": [], "list_seniors": [], "list_master": [], "list_men": [], "list_women": []}
 
     # Mostramos el menu principal
     while (option):
         try:
-            os.system('cls')
+            clear_screen()
             print("\n\t**********************************")
             print(  "\t*   MENU PRINCIPAL DEL SISTEMA   *")
             print(  "\t**********************************")
@@ -35,20 +35,20 @@ def menuPrincipal():
             ## Opcion 0: Salir del sistema
             elif (option == 0):
                 print("\n\tGracias por usar este sistema\n\n\t", end="")
-                os.system("pause")
-                os.system('cls')
+                input("Pulse ENTER para continuar... ")
+                clear_screen()
             ## Opcion incorrecta
             else:
-                raise OptionMenu("\n\t¡¡ERROR!!, el dato ingresado no es una opcion del menú\n\n\t", end="")
+                raise OptionMenu("¡¡ERROR!!, el dato ingresado no es una opcion del menú")
 
         ## Capturamos la excepcion de ValueError
         except ValueError:
             print("\n\t¡¡ERROR!!, el dato ingresado en el menú debe ser un número entero\n\n\t", end="")
             option = -1
-            os.system("pause")
+            input("Pulse ENTER para continuar... ")
         
         ## Capturamos la excepcion de OptionMenu
         except (OptionMenu) as e:
             print(f"\n\t{e}\n\n\t", end="")
             option = -1
-            os.system("pause")
+            input("Pulse ENTER para continuar... ")

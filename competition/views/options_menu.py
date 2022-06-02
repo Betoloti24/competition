@@ -1,13 +1,23 @@
 ## IMPORTACION DE PAQUETES
 from data.archive import inputDataBase
-from exceptions.exepbasic import OptionMenu
-from controllers.textintable import printParticipants, printParticipantsByGroup, printParticipantsBySex, printTotalParticipants, printWinnersByGroup, printWinnersBySex, printWinnersByGroupSex, printWinner, printHistogram, printAverageTime
-from collections import deque
+from exceptions.exeption_basic import OptionMenu
+from controllers.actions import (
+    printParticipants, 
+    printParticipantsByGroup, 
+    printParticipantsBySex, 
+    printTotalParticipants, 
+    printWinnersByGroup, 
+    printWinnersBySex, 
+    printWinnersByGroupSex, 
+    printWinner, 
+    printHistogram, 
+    printAverageTime)
+from controllers.utils import clear_screen
 import os, time
 
 ## DECLARACION DE FUNCIONES
 # Funcion para la barra de carga
-def progress(percent:int=0, width:int=30):
+def progress(percent:int=0, width:int=30) -> None:
     left = width * percent // 100
     right = width - left
     print('\r\t[', '#' * left, ' ' * right, ']',
@@ -15,7 +25,7 @@ def progress(percent:int=0, width:int=30):
           sep='', end='', flush=True)
 
 # Vista de la opcion 1 del menu principal
-def menuArchivo(data_base:dict):
+def menuArchivo(data_base:dict) -> dict:
     # Inicializamos las variables y estructuras de datos
     option = -1
     namearchive = ""
@@ -23,7 +33,7 @@ def menuArchivo(data_base:dict):
     # Mostramos el menu de la opcion 1
     while (option):
         try:
-            os.system('cls')
+            clear_screen()
             print("\n\t**********************************")
             print(  "\t*        MENU DE ARCHIVOS        *")
             print(  "\t**********************************")
@@ -36,19 +46,20 @@ def menuArchivo(data_base:dict):
             # Evaluamos la opcion ingresada
             ## Opcion 1: Cargar archivo
             if (option == 1):
-                os.system('cls')
+                clear_screen()
                 print("\n\tCARGAR ARCHIVO:\n")
+                print("\tNOTA: el archivo a cargar debe estar en la raiz del proyecto, junto al archivo main.py\n")
                 print("\tPara regresar al menu de archivos, ingrese el valor 0 y pulce ENTER")
                 print("\tIngrese el nombre del archivo a cargar (nombre.txt/md) -->> ", end="")
                 namearchive = input()
 
                 if (namearchive != "0"):
                     # Pausa para la carga de datos
-                    # print("\n\tCARGANDO ARCHIVO...  \n\t", end="")
-                    # for i in range(101):
-                    #     progress(i)
-                    #     time.sleep(0.05)
-                    # print("")
+                    print("\n\tCARGANDO ARCHIVO...   \n\t", end="")
+                    for i in range(101):
+                        progress(i)
+                        time.sleep(0.05)
+                    print("")
                     
                     # Cargamos los datos del archivo
                     data_base = inputDataBase(namearchive, data_base)
@@ -59,28 +70,28 @@ def menuArchivo(data_base:dict):
 
             ## Opcion incorrecta
             else:
-                raise OptionMenu("\n\t¡¡ERROR!!, el dato ingresado no es una opcion del menú\n\n\t", end="")
+                raise OptionMenu("¡¡ERROR!!, el dato ingresado no es una opcion del menú")
 
         ## Capturamos la excepcion de ValueError
         except ValueError:
             print("\n\t¡¡ERROR!!, el dato ingresado en el menú debe ser un número entero\n\n\t", end="")
             option = -1
-            os.system("pause")
+            input("Pulse ENTER para continuar... ")
         ## Capturamos la excepcion de OptionMenu
         except (OptionMenu) as e:
             print(f"\n\t{e}\n\n\t", end="")
             option = -1
-            os.system("pause")
+            input("Pulse ENTER para continuar... ")
 
 # Vista de la opcion 2 del menu principal
-def menuAcciones(data_base:dict):
+def menuAcciones(data_base:dict) -> dict:
     # Inicializamos las variables y estructuras de datos
     option = -1
 
     # Mostramos el menu de la opcion 1
     while (option):
         try:
-            os.system('cls')
+            clear_screen()
             print("\n\t**************************************************")
             print(  "\t*                MENU DE ACCIONES                *")
             print(  "\t**************************************************")
@@ -116,31 +127,31 @@ def menuAcciones(data_base:dict):
                 elif (option == 6): printWinnersBySex(data_base["list_men"], data_base["list_women"])
                 ## Opcion 7: Ganadores por grupo etario y sexo
                 elif (option == 7):
-                    os.system('cls')
+                    clear_screen()
                     print("\n\tGANADORES POR SEXO Y ETARIO:\n")
-                    printWinnersByGroupSex(data_base["list_juniors"], data_base["list_masters"], data_base["list_seniors"], data_base["list_men"], data_base["list_women"])
+                    printWinnersByGroupSex(data_base["list_juniors"], data_base["list_masters"], data_base["list_seniors"])
                 ## Opcion 8: Ganador general
                 elif (option == 8): printWinner(data_base["list_participants"][0])
                 ## Opcion 9: Histograma de participantes por grupo etario
                 elif (option == 9): printHistogram(data_base["list_juniors"], data_base["list_seniors"], data_base["list_masters"])
                 ## Opcion 10: Promedio de tiempo por grupo etario y sexo
-                elif (option == 10): printAverageTime(data_base["list_juniors"], data_base["list_seniors"], data_base["list_masters"], data_base["list_men"], data_base["list_women"])
+                elif (option == 10): printAverageTime(data_base["list_juniors"], data_base["list_seniors"], data_base["list_masters"])
                 ## Opcion incorrecta
                 elif (option != 0):
-                    print("\n\tERROR!, ingrese una opcion correcta\n\n\t", end="")
-                os.system("pause")
-            elif (option != 0):
-                raise OptionMenu("\n\t¡¡ERROR!!, el dato ingresado no es una opcion del menú\n\n\t", end="")
+                    raise OptionMenu("¡¡ERROR!!, el dato ingresado no es una opcion del menú")
+                input("Pulse ENTER para continuar... ")
+            elif (len(data_base["list_participants"]) == 0 and option != 0):
+                raise OptionMenu("¡¡ERROR!!, la lista de participantes está vacía, carge un archivo con los datos")
             
         ## Capturamos la excepcion de ValueError
         except ValueError:
             print("\n\t¡¡ERROR!!, el dato ingresado en el menú debe ser un número entero\n\n\t", end="")
             option = -1
-            os.system("pause")
+            input("Pulse ENTER para continuar... ")
 
         ## Capturamos la excepcion de OptionMenu
         except (OptionMenu) as e:
             print(f"\n\t{e}\n\n\t", end="")
             option = -1
-            os.system("pause")
+            input("Pulse ENTER para continuar... ")
         
