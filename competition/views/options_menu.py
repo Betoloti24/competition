@@ -122,14 +122,14 @@ def menuAcciones(data_base:dict) -> dict:
                 ## Opcion 4: Cantidad de participantes por sexo
                 elif (option == 4): printParticipantsBySex(data_base["list_men"], data_base["list_women"])
                 ## Opcion 5: Ganadores por grupo etario
-                elif (option == 5): printWinnersByGroup(data_base["list_juniors"], data_base["list_masters"], data_base["list_seniors"])
+                elif (option == 5): printWinnersByGroup(data_base["list_juniors"], data_base["list_seniors"], data_base["list_masters"])
                 ## Opcion 6: Ganadores por sexo
                 elif (option == 6): printWinnersBySex(data_base["list_men"], data_base["list_women"])
                 ## Opcion 7: Ganadores por grupo etario y sexo
                 elif (option == 7):
                     clear_screen()
                     print("\n\tGANADORES POR SEXO Y ETARIO:\n")
-                    printWinnersByGroupSex(data_base["list_juniors"], data_base["list_masters"], data_base["list_seniors"])
+                    printWinnersByGroupSex(data_base["list_juniors"], data_base["list_seniors"], data_base["list_masters"])
                 ## Opcion 8: Ganador general
                 elif (option == 8): printWinner(data_base["list_participants"][0])
                 ## Opcion 9: Histograma de participantes por grupo etario
