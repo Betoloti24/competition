@@ -6,4 +6,4 @@
 ``` bat
     python main.py
 ```
-4. **Fecha de entrega:** 8/06/2022
+4. **Fecha de entrega:** 08/06/2022
